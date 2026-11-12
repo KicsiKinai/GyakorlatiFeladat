@@ -130,9 +130,9 @@ namespace GyakorlatiFeladat
             int sorrendHossz = 1;
             for (int i = 1; i < szamok.Length - 1; i++)
             {
-                if (elozo+1 == szamok[i])
+                if (elozo + 1 == szamok[i])
                 {
-                    sorrendIndex = i;
+                    sorrendIndex = i-1;
                     sorrendVan = true;
                     sorrendHossz++;
                 }
@@ -141,23 +141,34 @@ namespace GyakorlatiFeladat
             int[] szamSorrend = new int[sorrendHossz];
             if (sorrendVan == true)
             {
-                for (int i = sorrendIndex; i < sorrendHossz; i++)
+                for (int i = 0; i < sorrendHossz; i++)
                 {
-                    szamSorrend[i] = szamok[i];
+                    szamSorrend[i] = szamok[sorrendIndex];
+                    sorrendIndex++;
                 }
             }
-            Console.Write("A leghosszabb növekedő számsorrend: ");
-            if (szamSorrend.Length == 0)
+            if (szamSorrend.Length == 1)
             {
                 Console.Write("Nincs benne egy növekvő sorrend sem!");
             }
             else
             {
+                Console.Write("A leghosszabb növekedő számsorrend: ");
                 for (int i = 0; i < szamSorrend.Length; i++)
                 {
                     Console.Write($"{szamSorrend[i]}, ");
                 }
             }
+        }
+
+        static void AtlagAlattiDuplazas()
+        {
+            int szamokSum = 0;
+            for (int i = 0; i < szamok.Length-1; i++)
+            {
+                szamokSum += szamok[i];
+            }
+            double atlag;
         }
 
         static void Feladat2()
