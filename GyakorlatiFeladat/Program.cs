@@ -1,29 +1,63 @@
-﻿namespace GyakorlatiFeladat
+﻿using System.Data.Common;
+
+namespace GyakorlatiFeladat
 {
     internal class Program
     {
         static string[] huto = new string[10];
+        
+        static string[] hutoTomoritett = new string[10];
 
         static int hutobenDb = 0;
         static void Feltoltes()
         {
-            Console.Write("Adjon meg egy ételt amit be akar rakni a hűtőbe: ");
-            string hutobeValo = Console.ReadLine();
-            huto[hutobenDb] = hutobeValo;
-            hutobenDb++;
+            if (hutobenDb == 10)
+            {
+                Console.WriteLine("Nincs hely a hűtőben!");
+            }
+            else
+            {
+                Console.Write("Adjon meg egy ételt amit be akar rakni a hűtőbe: ");
+                string hutobeValo = Console.ReadLine();
+                huto[hutobenDb] = hutobeValo;
+                hutobenDb++;
+            }
         }
 
         static void Takarit()
         {
+            int hutoTomorDb = 0;
             for (int i = 0; i < huto.Length; i++)
             {
-
-                if (huto[i] == "")
+                if (huto[i] != "" && huto[i] != null)
                 {
-
+                    hutoTomoritett[hutoTomorDb] = huto[i];
+                    hutoTomorDb++;
                 }
             }
-            Console.WriteLine(hutobenDb);
+            Console.WriteLine("A takarított tömbben lévő elemek száma: " + hutoTomorDb);
+        }
+
+        static void KeresEtel(string etelNeve)
+        {
+            int index = 0;
+            bool megvan = false;
+            while (index != huto.Length && megvan == false)
+            {
+                if (huto[index] == etelNeve)
+                {
+                    megvan = true;
+                }
+                else
+                {
+                    index++;
+                }
+            }
+            if (index == 10)
+            {
+                index = 0;
+            }
+            Console.WriteLine($"Az adott étel ({etelNeve}) indexe: {index}");
         }
 
 
@@ -31,8 +65,12 @@
         static void Main(string[] args)
         {
             Feltoltes();
-            Takarit();
             Feltoltes();
+            Feltoltes();
+            Feltoltes();
+            Feltoltes();
+            Takarit();
+            KeresEtel("Sajt");
         }
     }
 }
