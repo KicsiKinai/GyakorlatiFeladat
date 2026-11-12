@@ -1,4 +1,5 @@
 ﻿using System.Data.Common;
+using System.Security.Principal;
 using System.Xml.Serialization;
 
 namespace GyakorlatiFeladat
@@ -98,31 +99,73 @@ namespace GyakorlatiFeladat
         static Random r = new Random();
         static void FeltoltEgyediekkel(int min, int max)
         {
-            int index = 0;
-            bool van = false;
+            int hozzaAdas;
             Console.Write("A számok: ");
-            foreach (int item in szamok)
+            for (int i = 0; i < szamok.Length; i++)
             {
-                int hozzaAdas = r.Next(min, max - 1);
-                for (int i = 0; i < szamok.Length - 1; i++)
+                bool van = false;
+                do
                 {
-                    if (szamok[i] == hozzaAdas)
+                    van = false;
+                    hozzaAdas = r.Next(min, max - 1);
+                    for (int j = 0; j < szamok.Length; j++)
                     {
-                        van = true;
+                        if (szamok[j] == hozzaAdas)
+                        {
+                            van = true;
+                        }
                     }
                 }
-                if (van == false)
-                {
-                    szamok[index] = hozzaAdas;
-                }
-                Console.Write($"{szamok[index]}, ");
+                while (van == true);
+                szamok[i] = hozzaAdas;
+                Console.Write($"{szamok[i]}, ");
             }
         }
 
+        static void LeghosszabbNovekvo()
+        {
+            int elozo = szamok[0];
+            bool sorrendVan = false;
+            int sorrendIndex = 0;
+            int sorrendHossz = 1;
+            for (int i = 1; i < szamok.Length - 1; i++)
+            {
+                if (elozo+1 == szamok[i])
+                {
+                    sorrendIndex = i;
+                    sorrendVan = true;
+                    sorrendHossz++;
+                }
+                elozo = szamok[i];
+            }
+            int[] szamSorrend = new int[sorrendHossz];
+            if (sorrendVan == true)
+            {
+                for (int i = sorrendIndex; i < sorrendHossz; i++)
+                {
+                    szamSorrend[i] = szamok[i];
+                }
+            }
+            Console.Write("A leghosszabb növekedő számsorrend: ");
+            if (szamSorrend.Length == 0)
+            {
+                Console.Write("Nincs benne egy növekvő sorrend sem!");
+            }
+            else
+            {
+                for (int i = 0; i < szamSorrend.Length; i++)
+                {
+                    Console.Write($"{szamSorrend[i]}, ");
+                }
+            }
+        }
 
         static void Feladat2()
         {
-            FeltoltEgyediekkel(1, 100);
+            FeltoltEgyediekkel(1, 15);
+            Console.WriteLine("");
+            LeghosszabbNovekvo();
+
         }
 
         static void Main(string[] args)
