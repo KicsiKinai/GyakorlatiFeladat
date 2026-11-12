@@ -5,8 +5,9 @@ namespace GyakorlatiFeladat
     internal class Program
     {
         static string[] huto = new string[10];
-        
+
         static string[] hutoTomoritett = new string[10];
+
 
         static int hutobenDb = 0;
         static void Feltoltes()
@@ -60,7 +61,24 @@ namespace GyakorlatiFeladat
             Console.WriteLine($"Az adott étel ({etelNeve}) indexe: {index}");
         }
 
-
+        static void MivelKezdodik()
+        {
+            char[] maganhangzok = { 'a', 'á', 'e', 'é', 'i', 'í', 'o', 'ó', 'ö', 'ő', 'u', 'ú', 'ü', 'ű' };
+            Console.Write($"A magánhangóval kezdődő ételek a hűtőben: ");
+            for (int i = 0; i < huto.Length; i++)
+            {
+                foreach (char item in maganhangzok)
+                {
+                    if (huto[i] != null)
+                    {
+                        if (huto[i].StartsWith(item))
+                        {
+                            Console.Write(huto[i] + ", ");
+                        }
+                    }
+                }
+            }
+        }
 
         static void Main(string[] args)
         {
@@ -71,6 +89,7 @@ namespace GyakorlatiFeladat
             Feltoltes();
             Takarit();
             KeresEtel("Sajt");
+            MivelKezdodik();
         }
     }
 }
