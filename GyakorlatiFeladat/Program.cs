@@ -1,4 +1,5 @@
 ﻿using System.Data.Common;
+using System.Xml.Serialization;
 
 namespace GyakorlatiFeladat
 {
@@ -80,7 +81,7 @@ namespace GyakorlatiFeladat
             }
         }
 
-        static void Main(string[] args)
+        static void Feladat1()
         {
             Feltoltes();
             Feltoltes();
@@ -90,6 +91,44 @@ namespace GyakorlatiFeladat
             Takarit();
             KeresEtel("Sajt");
             MivelKezdodik();
+        }
+
+
+        static int[] szamok = new int[10];
+        static Random r = new Random();
+        static void FeltoltEgyediekkel(int min, int max)
+        {
+            int index = 0;
+            bool van = false;
+            Console.Write("A számok: ");
+            foreach (int item in szamok)
+            {
+                int hozzaAdas = r.Next(min, max - 1);
+                for (int i = 0; i < szamok.Length - 1; i++)
+                {
+                    if (szamok[i] == hozzaAdas)
+                    {
+                        van = true;
+                    }
+                }
+                if (van == false)
+                {
+                    szamok[index] = hozzaAdas;
+                }
+                Console.Write($"{szamok[index]}, ");
+            }
+        }
+
+
+        static void Feladat2()
+        {
+            FeltoltEgyediekkel(1, 100);
+        }
+
+        static void Main(string[] args)
+        {
+            //Feladat1();
+            Feladat2();
         }
     }
 }
