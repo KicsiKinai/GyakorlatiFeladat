@@ -122,7 +122,7 @@ namespace GyakorlatiFeladat
             }
         }
 
-        static void LeghosszabbNovekvo()
+        static int[] LeghosszabbNovekvo()
         {
             int elozo = szamok[0];
             bool sorrendVan = false;
@@ -132,7 +132,7 @@ namespace GyakorlatiFeladat
             {
                 if (elozo + 1 == szamok[i])
                 {
-                    sorrendIndex = i-1;
+                    sorrendIndex = i - 1;
                     sorrendVan = true;
                     sorrendHossz++;
                 }
@@ -147,6 +147,38 @@ namespace GyakorlatiFeladat
                     sorrendIndex++;
                 }
             }
+            return szamSorrend;
+        }
+
+        static void AtlagAlattiDuplazas()
+        {
+            int szamokSum = 0;
+            for (int i = 0; i < szamok.Length; i++)
+            {
+                szamokSum += szamok[i];
+            }
+
+            double atlag = (double)szamokSum / szamok.Length;
+
+            for (int i = 0; i < szamok.Length; i++)
+            {
+                if (szamok[i] < atlag)
+                {
+                    szamok[i] *= 2;
+                }
+            }
+            Console.Write("Az átlag alatti elemek duplázása után: ");
+            for (int i = 0; i < szamok.Length; i++)
+            {
+                Console.Write(szamok[i] + ", ");
+            }
+        }
+
+        static void Feladat2()
+        {
+            FeltoltEgyediekkel(1, 15);
+            Console.WriteLine("");
+            int [] szamSorrend = LeghosszabbNovekvo();
             if (szamSorrend.Length == 1)
             {
                 Console.Write("Nincs benne egy növekvő sorrend sem!");
@@ -159,24 +191,8 @@ namespace GyakorlatiFeladat
                     Console.Write($"{szamSorrend[i]}, ");
                 }
             }
-        }
-
-        static void AtlagAlattiDuplazas()
-        {
-            int szamokSum = 0;
-            for (int i = 0; i < szamok.Length-1; i++)
-            {
-                szamokSum += szamok[i];
-            }
-            double atlag;
-        }
-
-        static void Feladat2()
-        {
-            FeltoltEgyediekkel(1, 15);
-            Console.WriteLine("");
-            LeghosszabbNovekvo();
-
+            Console.WriteLine();
+            AtlagAlattiDuplazas();
         }
 
         static void Main(string[] args)
